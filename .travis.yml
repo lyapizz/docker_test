@@ -5,3 +5,12 @@ services:
 script:
   - docker build -t lyapizz/node .
   - docker images lyapizz/node
+
+before_deploy:
+  - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD}
+
+deploy:
+  provider: script
+  script: docker push lyapizz/node
+  on:
+    branch: master
